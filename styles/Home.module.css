@@ -75,7 +75,12 @@
 	cursor: pointer;
 }
 
-.next {
+.footer {
 	display: flex;
-	justify-content: center
+	justify-content: center;
+	width: 100vw;
+	height: 50px;
+	background-color: #021334;
+	color: white;
+	padding: 0px 20px 0px 20px;
 }
