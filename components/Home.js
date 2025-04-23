@@ -74,14 +74,13 @@ function Home() {
           <img src="logo.png" alt="Logo" />
           <img className={styles.logo} src="logoletter.png" alt="Letter logo" />
         </div>
-        <div><Input.Search placeholder="Search" 
+        <Input.Search placeholder="Search" 
         onSearch={(value) => setSearchTerm(value)} 
         onChange={(e) => setSearchTerm(e.target.value)} 
         style={{ width: 200, marginRight: '1rem' }}/>
         <Popover title="Liked movies" content={popoverContent} className={styles.popover} trigger="click">
           <Button>♥ {likedMovies.length} movie(s)</Button>
         </Popover>
-        </div>
       </div>
       <div className={styles.title}>LAST RELEASES</div>
       <div className={styles.moviesContainer}>
