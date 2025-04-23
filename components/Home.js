@@ -37,7 +37,7 @@ function Home() {
   const [moviesData, setMoviesData] = useState([])
   
   useEffect(() => {
-    fetch('https://my-moviz-backend-red.vercel.app/movies')
+    fetch(`https://my-moviz-backend-red.vercel.app/movies`)
       .then(response => response.json())
       .then(data => {
         setMoviesData(data.movies);
@@ -48,7 +48,16 @@ function Home() {
   const filteredMovies = moviesData.filter((movie) =>
     movie.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  
+
+  const [page, setPage] = useState(1);
+  useEffect(() => {
+    fetch(`https://my-moviz-backend-red.vercel.app/movies?page=${page}`)
+      .then(response => response.json())
+      .then(data => {
+        setMoviesData(data.movies);
+      });
+  }, [page]);
+
   const movies = filteredMovies.map((data, i) => {
     const isLiked = likedMovies.some(movie => movie === data.title);
     const overview = data.overview.length <= 250 ? data.overview : data.overview.substring(0, 250) + "...";
@@ -86,6 +95,7 @@ function Home() {
       <div className={styles.moviesContainer}>
         {movies}
       </div>
+      <Button onClick={() => setPage(page + 1)}>Next</Button>
     </div>
   );
 }
