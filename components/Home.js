@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Popover, Button } from 'antd';
+import { Popover, Button, Input } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import Movie from './Movie';
@@ -43,21 +43,28 @@ function Home() {
         setMoviesData(data.movies);
       });
   }, []);
- 
-  // const moviesData = [
-  //   { title: 'Forrest Gump', poster: 'forrestgump.jpg', voteAverage: 9.2, voteCount: 22_705, overview: 'A man with a low IQ has accomplished great things in his life and been present during significant historic events—in each case.' },
-  //   { title: 'The Dark Knight', poster: 'thedarkknight.jpg', voteAverage: 8.5, voteCount: 27_547, overview: 'Batman raises the stakes in his war on crime and sets out to dismantle the remaining criminal organizations that plague the streets.' },
-  //   { title: 'Your name', poster: 'yourname.jpg', voteAverage: 8.5, voteCount: 8_691, overview: 'High schoolers Mitsuha and Taki are complete strangers living separate lives. But one night, they suddenly switch places.' },
-  //   { title: 'Iron Man', poster: 'ironman.jpg', voteAverage: 7.6, voteCount: 22_7726, overview: 'After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil.' },
-  //   { title: 'Inception', poster: 'inception.jpg', voteAverage: 8.4, voteCount: 31_546, overview: 'Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life.' },
-  // ];
 
-  const movies = moviesData.map((data, i) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const filteredMovies = moviesData.filter((movie) =>
+    movie.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  
+  const movies = filteredMovies.map((data, i) => {
     const isLiked = likedMovies.some(movie => movie === data.title);
-    if (data.overview<=250) {
-      return <Movie key={i} updateLikedMovies={updateLikedMovies} isLiked={isLiked} title={data.title} overview={data.overview} poster={'https://image.tmdb.org/t/p/original/'+data.poster_path} voteAverage={data.vote_average} voteCount={data.vote_count} />;
-    } else { return <Movie key={i} updateLikedMovies={updateLikedMovies} isLiked={isLiked} title={data.title} overview={data.overview.substring(0,250)+"..."} poster={'https://image.tmdb.org/t/p/original/'+data.poster_path} voteAverage={data.vote_average} voteCount={data.vote_count} />;
-    }
+    const overview = data.overview.length <= 250 ? data.overview : data.overview.substring(0, 250) + "...";
+    
+    return (
+      <Movie
+        key={i}
+        updateLikedMovies={updateLikedMovies}
+        isLiked={isLiked}
+        title={data.title}
+        overview={overview}
+        poster={'https://image.tmdb.org/t/p/original/' + data.poster_path}
+        voteAverage={data.vote_average}
+        voteCount={data.vote_count}
+      />
+    );
   });
 
   return (
@@ -67,6 +74,10 @@ function Home() {
           <img src="logo.png" alt="Logo" />
           <img className={styles.logo} src="logoletter.png" alt="Letter logo" />
         </div>
+        <Input.Search placeholder="Search" 
+        onSearch={(value) => setSearchTerm(value)} 
+        onChange={(e) => setSearchTerm(e.target.value)} 
+        style={{ width: 200, marginRight: '1rem' }}/>
         <Popover title="Liked movies" content={popoverContent} className={styles.popover} trigger="click">
           <Button>♥ {likedMovies.length} movie(s)</Button>
         </Popover>
