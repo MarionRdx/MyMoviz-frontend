@@ -55,8 +55,8 @@ function Home() {
   const movies = moviesData.map((data, i) => {
     const isLiked = likedMovies.some(movie => movie === data.title);
     if (data.overview<=250) {
-      return <Movie key={i} updateLikedMovies={updateLikedMovies} isLiked={isLiked} title={data.title} overview={data.overview} poster={'https://image.tmdb.org/t/p/original/'+data.poster_path} voteAverage={data.voteAverage} voteCount={data.voteCount} />;
-    } else { return <Movie key={i} updateLikedMovies={updateLikedMovies} isLiked={isLiked} title={data.title} overview={data.overview.substring(0,250)+"..."} poster={'https://image.tmdb.org/t/p/original/'+data.poster_path} voteAverage={data.voteAverage} voteCount={data.voteCount} />;
+      return <Movie key={i} updateLikedMovies={updateLikedMovies} isLiked={isLiked} title={data.title} overview={data.overview} poster={'https://image.tmdb.org/t/p/original/'+data.poster_path} voteAverage={data.vote_average} voteCount={data.vote_count} />;
+    } else { return <Movie key={i} updateLikedMovies={updateLikedMovies} isLiked={isLiked} title={data.title} overview={data.overview.substring(0,250)+"..."} poster={'https://image.tmdb.org/t/p/original/'+data.poster_path} voteAverage={data.vote_average} voteCount={data.vote_count} />;
     }
   });
 
