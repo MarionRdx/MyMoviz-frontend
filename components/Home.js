@@ -94,7 +94,7 @@ function Home() {
       <div className={styles.moviesContainer}>
         {movies}
       </div>
-      <Button className={style.next} onClick={() => setPage(page + 1)}>Next</Button>
+      <Button className={styles.next} onClick={() => setPage(page + 1)}>Next</Button>
     </div>
   );
 }
