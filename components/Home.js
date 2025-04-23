@@ -35,7 +35,6 @@ function Home() {
 
   // Movies list
   const [moviesData, setMoviesData] = useState([])
-  
   useEffect(() => {
     fetch(`https://my-moviz-backend-red.vercel.app/movies`)
       .then(response => response.json())
