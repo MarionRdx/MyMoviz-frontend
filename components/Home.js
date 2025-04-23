@@ -94,7 +94,9 @@ function Home() {
       <div className={styles.moviesContainer}>
         {movies}
       </div>
-      <div className='footer'>
+      <div className={styles.footer}>
+      <Button className={styles.next} 
+        onClick={() => setPage(page - 1)}>Previous</Button>
         <Button className={styles.next} 
         onClick={() => setPage(page + 1)}>Next</Button>
         </div>

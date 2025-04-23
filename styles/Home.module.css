@@ -78,7 +78,12 @@
 .footer {
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	width: 100vw;
 	height: 50px;
 	background-color: #021334;
+}
+
+.next {
+	margin: 10px;
 }
